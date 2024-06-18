@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:meal_app/models/meal.dart';
+import 'package:meal_app/screens/meal_details.dart';
 import 'package:meal_app/widgets/meal_item.dart';
 
 class MealScreen extends StatelessWidget {
@@ -7,6 +8,13 @@ class MealScreen extends StatelessWidget {
 
   final String title;
   final List<Meal> meals;
+
+  // funzione da passare al widget mealItem così da renderlo un elemento linkabile
+  void _selectMeal(BuildContext context, Meal meal) {
+    Navigator.of(context).push(MaterialPageRoute(
+        builder: (ctx) =>
+            MealDetailsScreen(meal)));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +34,7 @@ class MealScreen extends StatelessWidget {
                 children: [
                   Text(
                     "no meals",
-                    style: TextStyle(color: Colors.white,fontSize: 26),
+                    style: TextStyle(color: Colors.white, fontSize: 26),
                   ),
                   SizedBox(
                     height: 16,
@@ -40,8 +48,7 @@ class MealScreen extends StatelessWidget {
             )
           : ListView.builder(
               itemCount: meals.length,
-              itemBuilder: (context, index) => MealItem(meals[index])
-            ),
+              itemBuilder: (context, index) => MealItem(meals[index],_selectMeal)),
     );
   }
 }
