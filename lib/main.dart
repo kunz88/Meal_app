@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:meal_app/categories.dart';
+import 'package:meals/cubits/meals_cubits.dart';
+
+import 'package:meals/screens/tabs.dart';
 
 final theme = ThemeData(
   useMaterial3: true,
@@ -23,7 +25,10 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: theme,
-      home: const CategoriesScreen()
+      home: BlocProvider(
+        create: (_) => MealsCubit(),
+        child: const TabsScreen(),
+      ),
     );
   }
 }
